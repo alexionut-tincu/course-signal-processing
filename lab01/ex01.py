@@ -3,48 +3,72 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-t0 = np.arange(0, 0.03, 0.0005)
-x0 = np.cos(520 * np.pi * t0 + np.pi / 3)
-y0 = np.cos(280 * np.pi * t0 - np.pi / 3)
-z0 = np.cos(120 * np.pi * t0 + np.pi / 3)
+# (a) Time axis (using 0.0305 to include 0.03)
+t = np.arange(0, 0.0305, 0.0005)
 
-fs = 200
-t1 = np.arange(0, 0.03, 1 / fs)
-x1 = np.cos(520 * np.pi * t1 + np.pi / 3)
-y1 = np.cos(280 * np.pi * t1 - np.pi / 3)
-z1 = np.cos(120 * np.pi * t1 + np.pi / 3)
+# (b) Defining the continuous signals
+x_t = np.cos(520 * np.pi * t + np.pi / 3)
+y_t = np.cos(280 * np.pi * t - np.pi / 3)
+z_t = np.cos(120 * np.pi * t + np.pi / 3)
+
+fig_cont, axs_cont = plt.subplots(3, 1, figsize=(10, 8))
+fig_cont.suptitle('Ex 1(b): Continuous Signals')
+
+# Plot x(t)
+axs_cont[0].plot(t, x_t)
+axs_cont[0].set_title('x(t) = cos(520πt + π/3)')
+axs_cont[0].set_xlabel('Time (t)')
+axs_cont[0].set_ylabel('Amplitude')
+
+# Plot y(t)
+axs_cont[1].plot(t, y_t)
+axs_cont[1].set_title('y(t) = cos(280πt - π/3)')
+axs_cont[1].set_xlabel('Time (t)')
+axs_cont[1].set_ylabel('Amplitude')
+
+# Plot z(t)
+axs_cont[2].plot(t, z_t)
+axs_cont[2].set_title('z(t) = cos(120πt + π/3)')
+axs_cont[2].set_xlabel('Time (t)')
+axs_cont[2].set_ylabel('Amplitude')
+
+fig_cont.tight_layout(rect=[0, 0.03, 1, 0.96])
+plt.savefig('ex01b.eps', format='eps')
+plt.show()
 
 
-fig0, axs = plt.subplots(3)
-fig0.suptitle("b)")
-axs[0].plot(t0, x0)
-axs[0].set_title("x(t)")
-axs[0].set_xlabel("t (s)")
-axs[0].set_ylabel("x(t)")
-axs[1].plot(t0, y0)
-axs[1].set_title("y(t)")
-axs[1].set_xlabel("t (s)")
-axs[1].set_ylabel("y(t)")
-axs[2].plot(t0, z0)
-axs[2].set_title("z(t)")
-axs[2].set_xlabel("t (s)")
-axs[2].set_ylabel("z(t)")
 
-fig1, axs = plt.subplots(3)
-fig1.suptitle("c)")
-axs[0].stem(t1, x1)
-axs[0].set_title("x[t]")
-axs[0].set_xlabel("t (s)")
-axs[0].set_ylabel("x[t]")
-axs[1].stem(t1, y1)
-axs[1].set_title("y[t]")
-axs[1].set_xlabel("t (s)")
-axs[1].set_ylabel("y[t]")
-axs[2].stem(t1, z1)
-axs[2].set_title("z[t]")
-axs[2].set_xlabel("t (s)")
-axs[2].set_ylabel("z[t]")
+# (c) Sample at 200 Hz
+fs = 200.0
+T = 1.0 / fs
+t_discrete = np.arange(0, 0.0305, T)
 
-plt.tight_layout()
-plt.savefig("ex01.eps", format="eps")
+# Generate the discrete signals
+x_n = np.cos(520 * np.pi * t_discrete + np.pi / 3)
+y_n = np.cos(280 * np.pi * t_discrete - np.pi / 3)
+z_n = np.cos(120 * np.pi * t_discrete + np.pi / 3)
+
+fig_disc, axs_disc = plt.subplots(3, 1, figsize=(10, 8))
+fig_disc.suptitle('Ex 1(c): Sampled Signals (fs = 200 Hz)')
+
+# Plot x[n]
+axs_disc[0].stem(t_discrete, x_n)
+axs_disc[0].set_title('x[n]')
+axs_disc[0].set_xlabel('Time (s)')
+axs_disc[0].set_ylabel('Amplitude')
+
+# Plot y[n]
+axs_disc[1].stem(t_discrete, y_n)
+axs_disc[1].set_title('y[n]')
+axs_disc[1].set_xlabel('Time (s)')
+axs_disc[1].set_ylabel('Amplitude')
+
+# Plot z[n]
+axs_disc[2].stem(t_discrete, z_n)
+axs_disc[2].set_title('z[n]')
+axs_disc[2].set_xlabel('Time (s)')
+axs_disc[2].set_ylabel('Amplitude')
+
+fig_disc.tight_layout(rect=[0, 0.03, 1, 0.96])
+plt.savefig('ex01c.eps', format='eps')
 plt.show()
