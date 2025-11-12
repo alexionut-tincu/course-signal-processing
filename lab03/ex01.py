@@ -1,8 +1,7 @@
+# https://cs.unibuc.ro/~crusu/ps/Procesarea%20Semnalelor%20(PS)%20-%20Laborator%2003.pdf
+
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import Normalize
-from matplotlib import cm
-from matplotlib.ticker import ScalarFormatter
 
 plt.rcParams["figure.dpi"] = 120
 
@@ -20,6 +19,8 @@ plt.rcParams["figure.dpi"] = 120
 #     axs[index].set_ylabel(f"linia {index}")
 #
 # plt.show()
+
+# l-am facut higher res aici:
 
 N = 64
 F = np.zeros((N, N), dtype=complex)
@@ -40,3 +41,14 @@ for index in range(N//16):
     axs[index + 4].set_ylabel(f"linia {N + index - N // 16}")
 
 plt.show()
+plt.savefig('ex01.eps', format='eps')
+
+def is_unitary(m):
+    mat = m.dot(m.T.conj()) / len(m)
+    res = np.allclose(np.eye(len(m)), mat)
+    print(mat[0:2][0:2])
+    return res
+
+
+print("Unitara?: ", is_unitary(F))
+
